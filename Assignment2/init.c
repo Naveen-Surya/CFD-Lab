@@ -22,11 +22,14 @@ int read_parameters( const char *szFileName,       /* name of the file */
                     int  *itermax,             /* max. number of iterations  */
 		                               /* for pressure per time step */
                     double *eps,               /* accuracy bound for pressure*/
-		                double *dt_value,         /* time for output */
-                                /*for Temperature inclusion/
+		    double *dt_value,          /* time for output */
+                                               /*for Temperature inclusion/
                     double *TI,               /*Temperature*/
                     double *Pr,               /*Prandtl Number*/
-                    double *beta)             /*Coefficient of Thermal Expansion*/
+                    double *beta              /*Coefficient of Thermal Expansion*/
+
+		    char *problem        /*Indicate the scenarios to be calculated*/
+	            const char *geometry )     /* to refer geometry.pgm file*/
 {
    READ_DOUBLE( szFileName, *xlength );
    READ_DOUBLE( szFileName, *ylength );
@@ -54,6 +57,8 @@ int read_parameters( const char *szFileName,       /* name of the file */
    READ_DOUBLE( szFileName, *TI);
    READ_DOUBLE(szFileName, *Pr);
    READ_DOUBLE(szFileName, *beta);
+   READ_STRING(szFileName, problem);
+   READ_PGM(geometry);
 
    *dx = *xlength / (double)(*imax);
    *dy = *ylength / (double)(*jmax);
